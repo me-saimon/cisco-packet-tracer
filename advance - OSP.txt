@@ -1,0 +1,146 @@
+!--- Router 1
+enable
+configure terminal
+interface g0/0
+ip add 120.20.1.1 255.255.255.0
+no sh
+
+exit
+int g0/1
+ip add 120.20.6.1 255.255.255.0
+no sh
+exit
+
+router ospf 10
+
+network 120.20.6.0 0.0.0.255 area 0
+network 120.20.1.0 0.0.0.255 area 0
+
+end
+
+
+!----- ROuter 2 
+enable
+configure terminal
+interface g0/0
+ip add 120.20.2.1 255.255.255.0
+no sh
+
+exit
+int g0/1
+ip add 120.20.6.2 255.255.255.0
+no sh
+exit
+
+int g0/2
+ip add 120.20.7.1 255.255.255.0
+no sh
+exit
+
+router ospf 10
+
+network 120.20.6.0 0.0.0.255 area 0
+network 120.20.7.0 0.0.0.255 area 0
+network 120.20.2.0 0.0.0.255 area 0
+
+end
+
+
+!----- ROuter 3
+enable
+configure terminal
+interface g0/0
+ip add 120.20.3.1 255.255.255.0
+no sh
+
+exit
+int g0/1
+ip add 120.20.7.2 255.255.255.0
+no sh
+exit
+
+int g0/2
+ip add 120.20.8.1 255.255.255.0
+no sh
+exit
+
+router ospf 10
+
+network 120.20.7.0 0.0.0.255 area 0
+network 120.20.8.0 0.0.0.255 area 0
+network 120.20.3.0 0.0.0.255 area 0
+
+end
+
+
+!------- Router 4
+en 
+config terminal
+int g0/0
+ip add 120.20.8.2 255.255.255.0
+no sh
+exit
+int g0/1
+ip add 120.20.9.1 255.255.255.0 
+no sh 
+exit 
+
+router ospf 10
+
+network 120.20.8.0 0.0.0.255 area 0
+network 120.20.9.0 0.0.0.255 area 0
+end
+
+
+
+!----- ROuter 5
+enable
+configure terminal
+interface g0/0
+ip add 120.20.4.1 255.255.255.0
+no sh
+
+exit
+int g0/1
+ip add 120.20.9.2 255.255.255.0
+no sh
+exit
+
+int g0/2
+ip add 120.20.10.1 255.255.255.0
+no sh
+exit
+
+router ospf 10
+
+network 120.20.9.0 0.0.0.255 area 0
+network 120.20.10.0 0.0.0.255 area 0
+network 120.20.4.0 0.0.0.255 area 0
+
+end
+
+
+
+!----- ROuter 6
+enable
+configure terminal
+interface g0/0
+ip add 120.20.5.1 255.255.255.0
+no sh
+
+exit
+int g0/1
+ip add 120.20.10.2 255.255.255.0
+no sh
+exit
+
+
+
+router ospf 10
+
+network 120.20.10.0 0.0.0.255 area 0
+network 120.20.5.0 0.0.0.255 area 0
+
+
+end
+

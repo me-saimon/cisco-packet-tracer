@@ -1,0 +1,153 @@
+
+! Router 1 configuration
+en 
+config terminal 
+interface g0/0
+ip address 120.20.0.1 255.255.255.0
+no shutdown
+exit
+
+interface g0/1
+ip address 120.20.5.1 255.255.255.0
+no sh
+exit
+
+! Router 2 Configuration 
+en
+config terminal 
+interface g0/0
+ip address 120.20.1.1 255.255.255.0
+no sh
+exit
+
+interface g0/1
+ip add 120.20.5.2 255.255.255.0
+no sh
+exit
+
+interface g0/2
+ip add 120.20.6.1 255.255.255.0
+no sh
+exit
+
+! Router 3 Configuration 
+en
+config terminal 
+interface g0/0
+ip add 120.20.2.1 255.255.255.0
+no sh
+exit
+
+int g0/1
+ip add 120.20.6.2 255.255.255.0
+no sh 
+exit
+
+int g0/2
+ip add 120.20.7.1 255.255.255.0
+no sh
+exit
+
+
+! Router 4 Configuration 
+en
+config terminal 
+interface g0/0
+ip add 120.20.7.2 255.255.255.0
+no sh
+exit
+ 
+int g0/1
+ip add 120.20.8.1 255.255.255.0
+no sh
+exit
+
+
+! Router 5 Configuration 
+en
+config terminal 
+interface g0/0
+ip add 120.20.3.1 255.255.255.0
+no sh
+exit
+int g0/1
+ip add 120.20.8.2 255.255.255.0
+no sh
+exit
+
+int g0/2
+ip add 120.20.9.1 255.255.255.0
+no sh
+exit
+
+! Router 6 Configuration 
+en
+config terminal 
+interface g0/0
+ip add 120.20.4.1 255.255.255.0
+no sh
+exit
+
+int g0/1
+ip add 120.20.9.2 255.255.255.0
+no sh
+exit
+
+
+
+! ------ Routing Table------------
+
+!----- Router 1
+ip route 0.0.0.0 0.0.0.0 120.20.5.2
+
+
+! ---- Router 2
+! left
+ip route 120.20.0.0 255.255.255.0 120.20.5.2
+
+! right
+ip route 120.20.2.0 255.255.255.0 120.20.6.2
+ip route 120.20.3.0 255.255.255.0 120.20.6.2
+ip route 120.20.4.0 255.255.255.0 120.20.6.2
+ip route 120.20.7.0 255.255.255.0 120.20.6.2
+ip route 120.20.8.0 255.255.255.0 120.20.6.2
+ip route 120.20.9.0 255.255.255.0 120.20.6.2
+
+!------ Router 3
+!left
+ip route 120.20.0.0 255.255.255.0 120.20.6.1
+ip route 120.20.1.0 255.255.255.0 120.20.6.1
+ip route 120.20.5.0 255.255.255.0 120.20.6.1
+!right
+ip route 120.20.3.0 255.255.255.0 120.20.7.2
+ip route 120.20.4.0 255.255.255.0 120.20.7.2
+ip route 120.20.8.0 255.255.255.0 120.20.7.2
+ip route 120.20.9.0 255.255.255.0 120.20.7.2
+
+
+
+!----Router 4 
+!left 
+ip route 120.20.0.0 255.255.255.0 120.20.7.1
+ip route 120.20.1.0 255.255.255.0 120.20.7.1
+ip route 120.20.2.0 255.255.255.0 120.20.7.1
+ip route 120.20.5.0 255.255.255.0 120.20.7.1
+ip route 120.20.6.0 255.255.255.0 120.20.7.1
+!right
+ip route 120.20.3.0 255.255.255.0 120.20.8.2
+ip route 120.20.4.0 255.255.255.0 120.20.8.2
+ip route 120.20.9.0 255.255.255.0 120.20.8.2
+
+!------Router 5
+!left
+ip route 120.20.0.0 255.255.255.0 120.20.8.1
+ip route 120.20.1.0 255.255.255.0 120.20.8.1
+ip route 120.20.2.0 255.255.255.0 120.20.8.1
+ip route 120.20.5.0 255.255.255.0 120.20.8.1
+ip route 120.20.6.0 255.255.255.0 120.20.8.1
+ip route 120.20.7.0 255.255.255.0 120.20.8.1
+!right
+ip route 120.20.4.0 255.255.255.0 120.20.9.2
+
+!------Router 6 ----------
+ip route 0.0.0.0 0.0.0.0 120.20.9.1

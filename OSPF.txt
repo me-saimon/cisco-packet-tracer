@@ -1,0 +1,68 @@
+
+!------- PC 1 ---------
+ip: 120.20.1.101
+sub: 255.255.255.0
+gateway: 120.20.1.1
+
+
+!------- PC 2 ---------
+ip: 120.20.1.102
+sub: 255.255.255.0
+gateway: 120.20.1.1
+
+
+!------- PC 3 ---------
+ip: 120.20.2.101
+sub: 255.255.255.0
+gateway: 120.20.2.1
+
+
+!------- PC 4 ---------
+ip: 120.20.2.102
+sub: 255.255.255.0
+gateway: 120.20.2.1
+
+
+
+!============= Router 1 ===========
+en
+config terminal 
+interface g0/0
+ip add 120.20.1.1 255.255.255.0
+no sh
+exit 
+
+interface g0/1
+ip add 120.20.3.1 255.255.255.0
+no sh 
+exit
+! ------------ OSPF config ----------
+router OSPF 10 
+network 120.20.1.0 0.0.0.255 area 0
+network 120.20.3.0 0.0.0.255 area 0
+
+
+!============ Router 2 =============
+en
+config terminal 
+interface g0/0
+ip add 120.20.2.1 255.255.255.0
+no sh
+exit 
+
+interface g0/1
+ip add 120.20.3.2 255.255.255.0
+no sh 
+exit
+! ------------ OSPF config ----------
+router OSPF 10 
+network 120.20.2.0 0.0.0.255 area 0
+network 120.20.3.0 0.0.0.255 area 0
+
+
+
+
+
+
+
+

@@ -1,0 +1,74 @@
+!------- PC 1 ---------
+ip: 120.20.1.10
+sub: 255.255.255.0
+gateway: 120.20.1.1
+
+!------- PC 2 ---------
+ip: 120.20.1.11
+sub: 255.255.255.0
+gateway: 120.20.1.1
+
+!------- PC 3 ---------
+ip: 120.20.2.10
+sub: 255.255.255.0
+gateway: 120.20.2.1
+
+!------- PC 4 ---------
+ip: 120.20.2.11
+sub: 255.255.255.0
+gateway: 120.20.2.1
+
+
+!------- Router 0 ---------
+enable
+configure terminal
+
+! Configure Inside Interface (Connecting to Switch0)
+interface GigabitEthernet0/0
+ip address 120.20.1.1 255.255.255.0
+ip nat inside
+no shutdown
+exit
+
+! Configure Outside Interface (Connecting to Router1)
+interface GigabitEthernet0/1
+ip address 120.20.3.1 255.255.255.0
+ip nat outside
+no shutdown
+exit
+
+! Configure Static Routing to reach the 120.20.2.0 network
+ip route 120.20.2.0 255.255.255.0 120.20.3.2
+
+! Configure Static NAT (Mapping PC0's IP to 120.20.3.100)
+ip nat inside source static 120.20.1.10 120.20.3.100
+
+end
+
+
+
+!------- Router 1 ---------
+enable
+configure terminal
+
+! Configure Interface connecting to Router0
+interface GigabitEthernet0/0
+ip address 120.20.3.2 255.255.255.0
+no shutdown
+exit
+
+! Configure Interface connecting to Switch1
+interface GigabitEthernet0/1
+ip address 120.20.2.1 255.255.255.0
+no shutdown
+exit
+
+! Configure Static Routing to reach the 120.20.1.0 network
+ip route 120.20.1.0 255.255.255.0 120.20.3.1
+
+end
+write memory
+
+
+
+show ip nat translations
